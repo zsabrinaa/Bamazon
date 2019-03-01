@@ -59,19 +59,22 @@ function shopping() {
                         type: "input",
                         message: "Please enter quantity:",
                         validate: function (value) {
-                            if (isNaN(value) === false) {
+                            if (value > res[0].stock_quantity){
+                                console.log("\n Insufficient quantity!");
+                                return false;
+                            }
+                             else if (isNaN(value) === false) {
                                 if (value > 0) {
                                     return true;
                                 }
+                            }else {
+                                console.log("\n Please enter a valid number.....");
+                                return false;
                             }
-                            console.log("\n Please enter a valid number.....");
-                            return false;
+                    
                         }
                     }).then(function (answer1) {
                         stock = res[0].stock_quantity - answer1.askQuantity
-                        if (answer1.askQuantity > res[0].stock_quantity) {
-                            console.log("Insufficient quantity!")
-                        } else {
                             var total = answer1.askQuantity * res[0].price;
                             console.log("----------------------------------------------");
                             console.log("Your total is :$" + total.toFixed(2) + "\n")
@@ -113,7 +116,7 @@ function shopping() {
 
                                     }
                                 })
-                        }
+                        
                     })
             })
         })
